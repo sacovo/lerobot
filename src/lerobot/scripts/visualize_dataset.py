@@ -64,6 +64,7 @@ local$ rerun ws://localhost:9087
 import argparse
 import gc
 import logging
+import os
 import time
 from collections.abc import Iterator
 from pathlib import Path
@@ -128,7 +129,7 @@ def visualize_dataset(
 
     logging.info("Starting Rerun")
 
-    if mode not in ["local", "distant"]:
+    if mode not in ["local", "distant", "remote"]:
         raise ValueError(mode)
 
     spawn_local_viewer = mode == "local" and not save
@@ -141,6 +142,13 @@ def visualize_dataset(
 
     if mode == "distant":
         rr.serve(open_browser=False, web_port=web_port, ws_port=ws_port)
+    elif mode == "remote":
+        rerun_remote = os.getenv("LEROBOT_RERUN_REMOTE", None)
+        if rerun_remote is None:
+            raise ValueError(
+                "Set the environment variable LEROBOT_RERUN_REMOTE to the address of the remote Rerun server."
+            )
+        rr.connect_tcp(rerun_remote)
 
     logging.info("Logging to Rerun")
 
