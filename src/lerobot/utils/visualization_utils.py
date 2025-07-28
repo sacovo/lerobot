@@ -25,10 +25,10 @@ def _init_rerun(session_name: str = "lerobot_control_loop") -> None:
     os.environ["RERUN_FLUSH_NUM_BYTES"] = batch_size
     rr.init(session_name, spawn=False)
 
-    rerurn_remote = os.getenv("LEROBOT_RERUN_REMOTE", None)
+    rerun_remote = os.getenv("LEROBOT_RERUN_REMOTE", None)
 
-    if rerurn_remote is not None:
-        rr.connect_tcp(rerurn_remote)
+    if rerun_remote is not None:
+        rr.connect_tcp(rerun_remote)
     else:
         memory_limit = os.getenv("LEROBOT_RERUN_MEMORY_LIMIT", "10%")
         rr.spawn(memory_limit=memory_limit)
