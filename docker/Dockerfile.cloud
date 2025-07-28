@@ -84,4 +84,4 @@ RUN echo "source /lerobot/.venv/bin/activate" >> /home/user_lerobot/.bashrc
 COPY --chown=user_lerobot:user_lerobot . .
 
 # Set the default command
-CMD ["/bin/bash"]
+CMD ["bash", "-c", "sudo mkdir -p /workspace; sudo chown user_lerobot /workspace; mkdir -p ~/.ssh; chmod 700 ~/.ssh; echo \"$PUBLIC_KEY\" >> ~/.ssh/authorized_keys; chmod 700 ~/.ssh/authorized_keys; sudo service ssh start; sleep infinity"]
