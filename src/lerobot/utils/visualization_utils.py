@@ -24,13 +24,6 @@ def _init_rerun(session_name: str = "lerobot_control_loop") -> None:
     batch_size = os.getenv("RERUN_FLUSH_NUM_BYTES", "8000")
     os.environ["RERUN_FLUSH_NUM_BYTES"] = batch_size
     rr.init(session_name, spawn=False)
-    
-    raise ValueError(
-        "Rerun is not supported in the lerobot package. "
-        "Please use the ares_reach package instead."
-    )
-    
-    print(f"Rerun initialized with session name: {session_name}")
 
     rerurn_remote = os.getenv("LEROBOT_RERUN_REMOTE", None)
 
