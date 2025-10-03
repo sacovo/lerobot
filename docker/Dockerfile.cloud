@@ -36,7 +36,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 # Install Python, system dependencies, and uv (as root)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  software-properties-common build-essential git curl sudo \
+  software-properties-common build-essential git curl sudo tmux neovim htop nvtop \
   libglib2.0-0 libgl1-mesa-glx libegl1-mesa ffmpeg openssh-server cmake \
   libusb-1.0-0-dev speech-dispatcher libgeos-dev portaudio19-dev \
   && add-apt-repository -y ppa:deadsnakes/ppa \
