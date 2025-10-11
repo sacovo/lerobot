@@ -15,10 +15,8 @@
 # limitations under the License.
 
 from dataclasses import dataclass, field
+from typing import Any
 
-from lerobot import (
-    policies,  # noqa: F401
-)
 from lerobot.datasets.transforms import ImageTransformsConfig
 from lerobot.datasets.video_utils import get_safe_default_codec
 
@@ -33,10 +31,16 @@ class DatasetConfig:
     # Root directory where the dataset will be stored (e.g. 'dataset/path').
     root: str | None = None
     episodes: list[int] | None = None
-    image_transforms: ImageTransformsConfig = field(default_factory=ImageTransformsConfig)
+    image_transforms: ImageTransformsConfig = field(
+        default_factory=ImageTransformsConfig
+    )
     revision: str | None = None
     use_imagenet_stats: bool = True
     video_backend: str = field(default_factory=get_safe_default_codec)
+    streaming: bool = False
+
+    # Additional args for loading the dataset, like tolerance_s
+    kwargs: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -48,7 +52,9 @@ class WandBConfig:
     entity: str | None = None
     notes: str | None = None
     run_id: str | None = None
-    mode: str | None = None  # Allowed values: 'online', 'offline' 'disabled'. Defaults to 'online'
+    mode: str | None = (
+        None  # Allowed values: 'online', 'offline' 'disabled'. Defaults to 'online'
+    )
 
 
 @dataclass
